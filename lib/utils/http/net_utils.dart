@@ -9,9 +9,9 @@ var dio = Dio(BaseOptions(connectTimeout: 30000, headers: optHeader));
 
 class NetUtils {
   static Future get(String url, [Map<String, dynamic>? params]) async {
-    var response;
     dio.interceptors.add(ErrorInterceptor());
     dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
+    var response;
     if (params != null) {
       response = await dio.get(url, queryParameters: params);
     } else {
@@ -21,16 +21,16 @@ class NetUtils {
   }
 
   static Future post(String url, Map<String, dynamic> params) async {
-    var response = await dio.post(url, data: params);
     dio.interceptors.add(ErrorInterceptor());
     dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
+    var response = await dio.post(url, data: params);
     return getData(response);
   }
 
   static Future postForm(String url, FormData params) async {
-    var response = await dio.post(url, data: params);
     dio.interceptors.add(ErrorInterceptor());
     dio.interceptors.add(LogInterceptor(responseBody: true, requestBody: true));
+    var response = await dio.post(url, data: params);
     return getData(response);
   }
 
@@ -51,17 +51,19 @@ class ErrorInterceptor extends Interceptor {
     var err = map['errorCode'];
     if (err == ErrCode.SUCCESS) {
       handler.next(response);
-    }else if(err == ErrCode.TOKEN_ERR){
+    } else if (err == ErrCode.TOKEN_ERR) {
       //处理token过期
     } else {
       handler.reject(DioError(
           requestOptions: response.requestOptions,
-          error: response.data != null &&
+          error: AppException.create(DioError(
+              requestOptions: response.requestOptions,
+              error: response.data != null &&
                   response.data is Map &&
                   response.data['errorMsg'] != null &&
                   response.data['errorMsg'].length > 0
-              ? response.data['errorMsg']
-              : "未知异常",
+                  ? response.data['errorMsg']
+                  : "未知异常")),
           response: response));
     }
   }

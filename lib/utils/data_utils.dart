@@ -9,13 +9,13 @@ class DataUtils {
   // 登陆获取用户信息
   static Future<ApiResponse<UserInfo>> doLogin(
       String username, String password) async {
-    var response = await NetUtils.postForm(
-        Api.DO_LOGIN,
-        new FormData.fromMap({
-          "username": "$username",
-          "password": "$password",
-        }));
     try {
+      var response = await NetUtils.postForm(
+          Api.DO_LOGIN,
+          new FormData.fromMap({
+            "username": "$username",
+            "password": "$password",
+          }));
       return ApiResponse.completed(UserInfo.fromJson(response));
     } on DioError catch (err) {
       return ApiResponse.error(err.error);

@@ -150,6 +150,9 @@ class _SingInPageState extends State<SingInPage> {
 
   void dologin() {
     _signInFormKey.currentState!.save();
+    emailFocusNode.unfocus();
+    passwordFocusNode.unfocus();
+
     DataUtils.doLogin(username, password).then((value) {
       if (value.status == Status.COMPLETED) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
