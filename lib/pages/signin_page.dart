@@ -19,6 +19,11 @@ class _SingInPageState extends State<SingInPage> {
   String password = '';
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 23),

@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:isolate';
+
 
 void main() {
   //------------基本数据类型-------------------------------
@@ -103,6 +105,10 @@ void main() {
   // }
 }
 
+Future<String> dataRequest() async {
+  sleep(Duration(seconds: 5));
+  return "ok";
+}
 
 void deIsolate() async {
   Isolate isolate;

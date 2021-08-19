@@ -47,10 +47,10 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             //头部 图片 Logo
             Padding(
-              padding: EdgeInsets.only(top: 75),
+              padding: EdgeInsets.only(top: 65,bottom: 20),
               child: Image(
-                width: 250,
-                height: 191,
+                width: 180,
+                height: 160,
                 image: AssetImage("./assets/imgs/nothing.png"),
               ),
             ),
